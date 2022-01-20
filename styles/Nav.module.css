@@ -1,0 +1,22 @@
+.nav {
+    background-color: rgba(0,0,0,0.6);
+    padding: 0.3rem 0 !important;
+    align-items: center;
+	text-align: center;
+}
+
+.navbarLink {
+    color: inherit !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    transition: 0.3s linear !important;
+}
+
+.navbarLink:hover {
+    color: #fc6f53 !important;
+}
+
+.profileCard {
+    position: relative;
+    right: 0 !important;
+}

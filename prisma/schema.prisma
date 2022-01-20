@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.db"
+}
+
+model User {
+  id                String             @id @default(uuid())
+  username          String             @unique
+  password          String
+  email             String             @unique
+  verified          Boolean
+  userInfo          UserInfo?
+  auntificationData AuntificationData?
+  skin              Skin?
+  session           Session?
+}
+
+model UserInfo {
+  id           Int      @id @default(autoincrement())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String   @unique
+  regDate      Int
+  lastPlayed   Int
+  roles        String
+  permissions  String
+  refreshToken String   @unique
+}
+
+model AuntificationData {
+  id     Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+  ip     String
+  Date   String
+}
+
+model Skin {
+  id     Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+  skin   String
+  cloak  String
+  body   String
+  head   String
+}
+
+model Session {
+  id           Int      @id @default(autoincrement())
+  sessionToken String   @unique
+  userId       String
+  expires      Int
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

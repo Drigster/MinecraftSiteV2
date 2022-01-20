@@ -1,0 +1,21 @@
+.infoBlock {
+    border-bottom: groove #3eb9e5;
+}
+
+.infoBlock:last-child {
+    border: unset;
+}
+
+.changeForm {
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #3eb9e5;
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 15px;
+    display: none;
+}
+
+.tableBlock {
+    height: 400px;
+    overflow: auto;
+}

@@ -1,0 +1,58 @@
+.changeParrent {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.change {
+	display: flex;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.8);
+	height: 100vh;
+	width: 100vw;
+	text-align: center;
+	align-items: center;
+}
+
+.change form {
+	min-width: 300px;
+	width: 500px;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%);
+}
+
+.change label {
+	display: block;
+}
+
+.change input{
+	display: block;
+	margin: 0;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	padding: 2%;
+	text-align: center;
+	width: 100%;
+}
+
+.change button{
+	margin: 0;
+	margin-top: 2rem;
+	padding: 2%;
+	width: 100%;
+}
+
+.hide {
+	display: block;
+	position: absolute;
+	top: 2rem;
+	right: 2rem;
+	width: unset !important;
+	height: unset !important;
+	padding: 1rem !important;
+	margin: 0 !important;
+}
