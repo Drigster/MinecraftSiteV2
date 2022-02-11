@@ -1,3 +1,4 @@
+import { createOrbitControls, RotatingAnimation, SkinViewer } from "skinview3d";
 import styles from "../styles/Profile.module.css";
 import Disabled from "../components/Disabled";
 import Popup from "../components/Popup";
@@ -5,11 +6,12 @@ import Change from "../components/Change";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import Content from "../components/Content";
 
 export default function Profile() {
   const router = useRouter();
+  let skinViewer;
 
   const { status, data: session } = useSession({
     required: true,
@@ -19,17 +21,71 @@ export default function Profile() {
     }
   })
 
+  const load = () => {
+    const canvas = document.getElementById("skin_container") as HTMLCanvasElement;
+    skinViewer = new SkinViewer({
+      canvas: canvas,
+      width: canvas.parentElement.clientWidth,
+      height: canvas.parentElement.clientHeight,
+      skin: session.user["skin"]["skin"]
+    });
+    let control = createOrbitControls(skinViewer);
+    control.enableRotate = true;
+  }
+
+  const resize = () => {
+    const canvas = document.getElementById("skin_container") as HTMLCanvasElement;
+    skinViewer.width = canvas.parentElement.clientWidth;
+    skinViewer.height = canvas.parentElement.clientHeight;
+  }
+
+  useEffect(() => {
+	  window.addEventListener('resize', resize);
+	  return () => window.removeEventListener('resize', resize);
+  }, [resize]);
+
+  useEffect(() => {
+	  window.addEventListener('load', load);
+    return () => window.removeEventListener('load', load);
+  }, [load]);
+
   if (status === "loading") {
     return <div style={{textAlign: "center"}}><h2>Loading...</h2></div>;
   }
-	
+
 	const regDate = new Date(session.user['userInfo']['regDate']);
 	const lastPlayed = new Date(session.user['userInfo']['lastPlayed']);
 
+	const fileSelectedHandler = async event => {
+		const response = await fetch("/api/skin/upload", {
+			method: 'POST',
+			body: event.target.files[0],
+			headers: {
+				'Content-Type': 'image/png',
+				'username': `${session.user.name}`,
+				'type': `${event.target.name}`
+			}
+		});
+		const messageField = document.getElementById("message");
+		console.log(response.status);
+		if(response.status == 202){
+			messageField.innerHTML = "Успешно!"
+		} 
+		else if (response.status == 500){
+			messageField.innerHTML = "Ошибка сервера, попробуйте ешё раз!"
+		}
+		else if (response.status == 500){
+			messageField.innerHTML = "Request syntax error!"
+		}
+		else {
+			messageField.innerHTML = "Пользователь не найден"
+		}
+	}
+
 	const show = event => {
-    const element = event.target.parentElement.lastChild;
-    element.style.display = 'block';
-  }
+		const element = event.target.parentElement.lastChild;
+		element.style.display = 'block';
+	}
 
 	return (
 		<Content>
@@ -38,14 +94,13 @@ export default function Profile() {
 				<div className={`col-12 col-xxl-5 col-xl-6 p-3 ${styles.infoBlock}`}>
 					<div className='row'>
 						<div className='col-12 col-sm-4 text-center'>
-							<img alt="${skinImg}" src={session.user['skin']['body']} />
+							<canvas style={{width: "100", height:"100"}}  id="skin_container" onLoad={load} onLoadStart={load}></canvas>
 						</div>
 						<div className='col-12 col-sm-8 p-3'>
 							<div style={{position: "relative"}} className='mb-5'>
 								<h4>Скин</h4>
 								<label>Размер скина должен быть 64x64</label><br />
-								<input type="file" name="skin" />
-								<Disabled><h5>Недоступно...</h5></Disabled>
+								<input onChange={fileSelectedHandler} type="file" name="skin" />
 							</div>
 							<div style={{position: "relative"}}>
 								<h4>Плащ</h4>
