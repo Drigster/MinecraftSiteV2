@@ -1,4 +1,5 @@
 import { getRandomString } from "../../../modules/utils";
+import { prisma } from "../../../modules/db";
 
 export default async function handler(req, res) {
   const request = JSON.parse(req.body);

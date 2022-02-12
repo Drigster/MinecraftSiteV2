@@ -1,5 +1,6 @@
 import fileSystem from 'fs';
 import path from 'path';
+import { prisma } from "../../../modules/db";
 
 export default async function handler(req, res) {
   const { username } = req.query;

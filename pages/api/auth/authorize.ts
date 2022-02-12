@@ -1,5 +1,6 @@
 import { getRandomString } from "../../../modules/utils";
 import { compare } from 'bcrypt';
+import { prisma } from "../../../modules/db";
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

@@ -1,3 +1,5 @@
+import { prisma } from "../../../modules/db";
+
 export default async function handler(req, res) {
   const token = req.headers["authorization"].replace(/Bearer /g, '');
   const session = await prisma.session.findUnique({ 

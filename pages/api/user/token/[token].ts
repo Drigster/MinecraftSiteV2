@@ -1,3 +1,5 @@
+import { prisma } from "../../../../modules/db";
+
 export default async function handler(req, res) {
   const { token } = req.query;
   const session = await prisma.session.findUnique({ 

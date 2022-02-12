@@ -1,3 +1,5 @@
+import { prisma } from "../../../../modules/db";
+
 export default async function handler(req, res) {
   const { username } = req.query;
   const user = await prisma.user.findUnique({ 

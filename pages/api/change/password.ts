@@ -1,4 +1,5 @@
 import { compare } from 'bcrypt';
+import { prisma } from "../../../modules/db";
 
 export default async (req, res) => {
     if (req.method !== 'POST') {
