@@ -23,22 +23,23 @@ model User {
 }
 
 model UserInfo {
-  id           Int      @id @default(autoincrement())
-  user         User     @relation(fields: [userId], references: [id])
-  userId       String   @unique
+  id           Int    @id @default(autoincrement())
+  user         User   @relation(fields: [userId], references: [id])
+  userId       String @unique
   regDate      Int
   lastPlayed   Int
   roles        String
   permissions  String
-  refreshToken String   @unique
+  refreshToken String @unique
 }
 
 model AuntificationData {
-  id     Int    @id @default(autoincrement())
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @unique
-  ip     String
-  Date   String
+  id       Int    @id @default(autoincrement())
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String @unique
+  serverId String
+  ip       String
+  Date     String
 }
 
 model Skin {
@@ -52,9 +53,9 @@ model Skin {
 }
 
 model Session {
-  id           Int      @id @default(autoincrement())
-  sessionToken String   @unique
-  userId       String
+  id           Int    @id @default(autoincrement())
+  sessionToken String @unique
+  userId       String @unique
   expires      Int
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
