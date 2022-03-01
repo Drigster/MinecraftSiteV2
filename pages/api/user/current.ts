@@ -42,6 +42,6 @@ export default async function handler(req, res) {
     res.status(200).json(HttpUserSession);
   }
   else {
-    res.status(404);
+    res.status(404).json({error: "auth.usernotfound"});
   }
 }

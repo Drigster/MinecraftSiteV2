@@ -32,6 +32,6 @@ export default async function handler(req, res) {
     res.status(200).json(AuthReport);
   }
   else {
-    res.status(404).send();
+    res.status(404).send({error: "auth.usernotfound"});
   }
 }

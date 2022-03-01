@@ -52,10 +52,10 @@ export default async function handler(req, res) {
       res.status(200).json(data);
     }
     else{
-      res.status(403).send();
+      res.status(200).json({error: "auth.invalidtoken"});
     }
   }
   else {
-    res.status(404);
+    res.status(404).json({error: "auth.usernotfound"});
   }
 }
