@@ -1,3 +1,5 @@
+import { prisma } from "../../../../modules/db";
+
 export default async function handler(req, res) {
   const { token } = req.query;
   const session = await prisma.session.findUnique({ 
@@ -15,7 +17,7 @@ export default async function handler(req, res) {
   if(session){
     const HttpUser = {
         "username": session.user.username,
-        "uuid": session.user.id,
+        "uuid": session.userId,
         "permissions": {
           "perms": JSON.parse(session.user.userInfo.permissions),
           "roles": JSON.parse(session.user.userInfo.roles)
@@ -43,6 +45,6 @@ export default async function handler(req, res) {
     res.status(200).json(HttpUserSession);
   }
   else {
-    res.status(404);
+    res.status(404).json({error: "auth.usernotfound"});
   }
 }

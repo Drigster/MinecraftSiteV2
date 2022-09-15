@@ -36,3 +36,7 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 .next
+
+prisma/migrations
+prisma/*.db
+prisma/*.db-journal

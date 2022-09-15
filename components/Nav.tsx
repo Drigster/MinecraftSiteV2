@@ -46,7 +46,7 @@ const Nav = () => {
 							<a className={`nav-link ${styles.navbarLink}`}>
 								<div className='row w-15'>
 									<div className='col text-end text-md-center'>
-										<img alt='${skin HeadImg}' src={session.user['skin']['head']} height="50rem" />
+										<img alt='${skin HeadImg}' src={`/api/skin/head/${session.userId}`} height="50rem" />
 									</div>
 									<div className='col text-start text-md-center' style={{ textAlign: 'center' }}>
 										<div>{session.user.name}</div>

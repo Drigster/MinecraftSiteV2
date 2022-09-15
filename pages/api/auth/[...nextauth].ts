@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { compare } from 'bcrypt';
+import { prisma } from "../../../modules/db";
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -31,11 +32,7 @@ export default NextAuth({
           if(await compare(credentials.password, user.password)) {
             return {
               id: user.id,
-              name: user.username,
-              email: user.email,
-              verified: user.verified,
-              userInfo: user.userInfo,
-              skin: user.skin
+              name: user.username
             };
           }
         }
@@ -50,12 +47,12 @@ export default NextAuth({
       }
       return token;
     },
-    session: async ({ session, token }) => {
+    session: async ({ session, token, user }) => {
       if(token){
         session.user = token.data;
       }
       
-      return session;
+      return session
     },
   },
   secret: process.env.SECRET,

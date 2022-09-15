@@ -14,7 +14,7 @@ export const prisma =
 
   new PrismaClient({
 
-    log: ['query'],
+    log: ['info', 'warn', 'error']
 
   })
 

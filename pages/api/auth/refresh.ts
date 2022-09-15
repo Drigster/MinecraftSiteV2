@@ -1,4 +1,5 @@
 import { getRandomString } from "../../../modules/utils";
+import { prisma } from "../../../modules/db";
 
 export default async function handler(req, res) {
   const request = JSON.parse(req.body);
@@ -31,6 +32,6 @@ export default async function handler(req, res) {
     res.status(200).json(AuthReport);
   }
   else {
-    res.status(404).send();
+    res.status(404).send({error: "auth.usernotfound"});
   }
 }
