@@ -5,3 +5,7 @@
 .loginBlock input{
 	display: block;
 }
+
+#error {
+	color: red;
+}
