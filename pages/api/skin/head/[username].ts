@@ -3,10 +3,10 @@ import path from 'path';
 import { prisma } from "../../../../modules/db";
 
 export default async function handler(req, res) {
-  const { username } = req.query;
+  const { id } = req.query;
   let user = await prisma.user.findUnique({ 
     where: { 
-      username: username
+      id: id
     }
   });
   if(user){
@@ -24,6 +24,6 @@ export default async function handler(req, res) {
     var imageBuffer = fileSystem.readFileSync(filePath);
   }
   res.setHeader('Content-Type', 'image/png');
-  res.setHeader('Content-Disposition', `attachment; filename=${username}_head.png`);
+  res.setHeader('Content-Disposition', `attachment; filename=${id}_head.png`);
   res.send(imageBuffer);
 }

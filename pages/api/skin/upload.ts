@@ -59,10 +59,7 @@ export default async function handler(req, res) {
           .crop(8, 8, 8, 8)
           .scale(128, 128)
           .write(`./public/skins/${user.id}_head.png`, function (err) {
-            if (!err) {
-              console.log('crazytown has arrived');
-            }
-            else{
+            if (err) {
               console.log(err);
             }
           });
