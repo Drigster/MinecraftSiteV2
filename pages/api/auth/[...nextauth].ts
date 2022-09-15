@@ -47,12 +47,12 @@ export default NextAuth({
       }
       return token;
     },
-    session: async ({ session, token }) => {
+    session: async ({ session, token, user }) => {
       if(token){
         session.user = token.data;
       }
       
-      return session;
+      return session
     },
   },
   secret: process.env.SECRET,
