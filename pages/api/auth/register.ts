@@ -25,8 +25,8 @@ export default async function handler(req, res) {
         verified: false,
         userInfo: {
           create: {
-            regDate: Date.now(),
-            lastPlayed: 0,
+            regDate: new Date(),
+            lastPlayed: new Date(),
             permissions: '["launchserver.*", "launcher.*"]',
             roles: '["PLAYER"]',
             refreshToken: getRandomString(16)
