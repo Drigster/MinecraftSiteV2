@@ -104,9 +104,8 @@ export default function Profile(props) {
 		month: 'short',
 		day: 'numeric',
 		hour: 'numeric',
-		minute: 'numeric',
-		timezone: 'UTC'
-	};
+		minute: 'numeric'
+	} as const;
 
 	return (
 		<Content>
