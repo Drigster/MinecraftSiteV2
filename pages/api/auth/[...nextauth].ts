@@ -32,11 +32,7 @@ export default NextAuth({
           if(await compare(credentials.password, user.password)) {
             return {
               id: user.id,
-              name: user.username,
-              email: user.email,
-              verified: user.verified,
-              userInfo: user.userInfo,
-              skin: user.skin
+              name: user.username
             };
           }
         }
