@@ -39,7 +39,6 @@ export default function Register() {
                 })
             });
             if(response.status == 200){
-                console.log("OK");
                 signIn('credentials', { callbackUrl: '/profile', username: state.nickname, password: state.password });
             }
             else if(response.status == 409) {

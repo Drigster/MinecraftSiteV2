@@ -68,7 +68,6 @@ export default function Profile(props) {
 		window.addEventListener('load', load);
 		return () => window.removeEventListener('load', load);
 	}, [load]);
-	console.log(props.regDate);
 	const regDate = new Date(props.regDate);
 	const lastPlayed = new Date(props.lastPlayed);
 
@@ -83,7 +82,6 @@ export default function Profile(props) {
 			}
 		});
 		const messageField = document.getElementById("message");
-		console.log(response.status);
 		if (response.status == 202) {
 			messageField.innerHTML = "Успешно!"
 		}
